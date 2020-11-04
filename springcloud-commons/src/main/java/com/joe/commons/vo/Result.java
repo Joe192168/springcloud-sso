@@ -1,4 +1,4 @@
-package com.joe.commons;
+package com.joe.commons.vo;
 
 import lombok.Data;
 

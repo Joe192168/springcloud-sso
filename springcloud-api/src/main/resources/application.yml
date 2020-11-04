@@ -20,16 +20,16 @@ eureka:
     serviceUrl:
       # 注册中心地址
       defaultZone: http://${eureka.instance.hostname}:8080/eureka/
-#配置向认证服务器认证权限
-security:
-  oauth2:
-    client:
-      client-id: c1
-      client-secret: 123
-      access-token-uri: http://localhost:8082/oauth/token
-      user-authorization-uri: http://localhost:8082/oauth/authorize
-    resource:
-      token-info-uri: http://localhost:8082/oauth/check_token
+#配置向认证服务器认证权限和注入ResourceServerTokenServices相同
+#security:
+#  oauth2:
+#    client:
+#      client-id: c1
+#      client-secret: 123
+#      access-token-uri: http://localhost:8082/oauth/token
+#      user-authorization-uri: http://localhost:8082/oauth/authorize
+#    resource:
+#      token-info-uri: http://localhost:8082/oauth/check_token
 #远程调用
 feign:
   hystrix:

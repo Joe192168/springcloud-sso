@@ -1,6 +1,6 @@
 package com.joe.controller;
 
-import com.joe.commons.Result;
+import com.joe.commons.vo.Result;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -39,10 +39,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private DruidConfig druidConfig;
     @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
-
-    //这块jwt的key，使用这个key就可以进行解密操作
-    private String SIGGNING_KEY = "sso123";
+    private TokenStore tokenStore;
+    @Autowired
+    private JwtAccessTokenConverter accessTokenConverter;
 
     /**
      * 数据源配置
@@ -54,17 +53,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     * 配置jwt
-     * @return
-     */
-    @Bean
-    public JwtAccessTokenConverter accessTokenConverter(){
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(SIGGNING_KEY);//对称秘钥，资源服务器使用该秘钥解密
-        return converter;
-    }
-
-    /**
      * 将客户端信息从数据库获取
      * @return
      */
@@ -73,20 +61,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         ClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource());
         ((JdbcClientDetailsService)clientDetailsService).setPasswordEncoder(passwordEncoder);
         return clientDetailsService;
-    }
-
-    /**
-     * 令牌存储方式
-     * @return
-     */
-    @Bean
-    public TokenStore tokenStore(){
-        //存储缓存中
-        //return new InMemoryTokenStore();
-        //存储数据库
-        //return new JwtTokenStore(accessTokenConverter());
-        //存储Redis
-        return new RedisTokenStore(redisConnectionFactory);
     }
 
     /**
@@ -110,9 +84,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         DefaultTokenServices services = new DefaultTokenServices();
         services.setClientDetailsService(clientDetailsService());//客户端服务信息
         services.setSupportRefreshToken(true);//是否产生刷新令牌
-        services.setTokenStore(tokenStore());//令牌存储策略
+        services.setTokenStore(tokenStore);//令牌存储策略
+        //令牌增强
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter()));
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
         services.setTokenEnhancer(tokenEnhancerChain);
         services.setAccessTokenValiditySeconds(7200);//令牌默认有效期2小时
         services.setRefreshTokenValiditySeconds(259200);//刷新令牌默认的有效期3天

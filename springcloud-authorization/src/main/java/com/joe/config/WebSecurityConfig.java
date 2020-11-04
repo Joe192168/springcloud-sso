@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -63,7 +64,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 其余所有请求全部需要鉴权认证
                 .and().authorizeRequests().anyRequest().authenticated()
                 // 关闭csrf
-                .and().csrf().disable();
+                .and().csrf().disable()
+                //Spring Security永远不会创建HttpSession，它不会使用HttpSession来获取SecurityContext
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     /**
