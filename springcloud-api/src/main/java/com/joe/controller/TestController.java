@@ -38,7 +38,7 @@ public class TestController {
 
     @RequestMapping("/name")
     public String name(String name){
-        return "My name is " + name + ". aaa";
+        return "My name is " + name;
     }
 
     @RequestMapping("/hello")
@@ -48,7 +48,7 @@ public class TestController {
 
     @RequestMapping("/age")
     public String age(String age){
-        return "I am " + age + " years old this year. bbb";
+        return "I am " + age + " years old this year";
     }
 
     @RequestMapping("/routeAll")

@@ -37,12 +37,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    private UserDetailsServiceConfig myUserDetailsService;
-    @Autowired
     private DruidConfig druidConfig;
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 
+    //这块jwt的key，使用这个key就可以进行解密操作
     private String SIGGNING_KEY = "sso123";
 
     /**

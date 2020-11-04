@@ -30,11 +30,11 @@ public class TokenFilter implements GlobalFilter{
 
         // 只有综合路由才添加这个全局过滤器（routesId：route_all）
         // 如果请求路径中不存在 routeAll 字符串
-        //if(request.getURI().toString().indexOf("routeAll") == -1){
+        /*if(request.getURI().toString().indexOf("routeAll") == -1){
             System.out.println("filter -> return");
             // 直接跳出
-            //return chain.filter(exchange);
-        //}
+            return chain.filter(exchange);
+        }*/
  
         // 从请求中获取 token 参数
         //String token = exchange.getRequest().getQueryParams().getFirst("token");
