@@ -5,7 +5,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 /**
- * @program: distribution-sso
  * @description:
  * @author: Joe
  **/

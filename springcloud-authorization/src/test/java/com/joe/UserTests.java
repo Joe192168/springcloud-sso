@@ -12,6 +12,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+/**
+ * 测试新增用户
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserTests {
