@@ -1,0 +1,45 @@
+server:
+  port: 8081
+  #tomcat设置
+  tomcat:
+    uri-encoding: UTF-8
+    accesslog:
+      enabled: false
+spring:
+  application:
+    name: api-service
+eureka:
+  instance:
+    # 使用 ip 代替实例名
+    prefer-ip-address: true
+    # 实例的主机名
+    hostname: ${spring.cloud.client.ip-address}
+    # 实例的 ID 规则
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    serviceUrl:
+      # 注册中心地址
+      defaultZone: http://${eureka.instance.hostname}:8080/eureka/
+#配置向认证服务器认证权限
+security:
+  oauth2:
+    client:
+      client-id: c1
+      client-secret: 123
+      access-token-uri: http://localhost:8082/oauth/token
+      user-authorization-uri: http://localhost:8082/oauth/authorize
+    resource:
+      token-info-uri: http://localhost:8082/oauth/check_token
+#远程调用
+feign:
+  hystrix:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+      mime-types[0]: text/xml
+      mime-types[1]: application/xml
+      mime-types[2]: application/json
+      min-request-size: 2048
+    response:
+      enabled: true

@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "e943d2fb-e25a-4cac-a220-a850152931b0",
+		"name": "Spring Security SSO测试",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "oauth/token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "oauth/check_token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test/r1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsibWVjaGFudCJdLCJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbIlJPTEVfQVBJIiwiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2MDQzMTk5MzQsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiMTliMjI1MGQtMjkzYi00NDNhLWEzM2MtY2EzZDdmYjUyYzJiIiwiY2xpZW50X2lkIjoiYzEifQ.CcoaPnOXh2K8gGJMbWGf0B56LWdOUv48DXMcN9gCjzQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/order/r1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"order",
+						"r1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test/r2",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsibWVjaGFudCJdLCJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbIlJPTEVfQVBJIiwiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE2MDQzNzczOTUsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiNzFiNGMxZTAtMjY1Ny00YWYwLTlkYzktOGVhM2I1ZDI5OGYwIiwiY2xpZW50X2lkIjoiYzEifQ.lU2DrST5t92HjRA71nX9wGYK18mtgxg7G0AW8qRi-5U",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/order/r2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"order",
+						"r2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gateway",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
