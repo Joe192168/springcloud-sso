@@ -64,9 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 其余所有请求全部需要鉴权认证
                 .and().authorizeRequests().anyRequest().authenticated()
                 // 关闭csrf
-                .and().csrf().disable()
-                //Spring Security永远不会创建HttpSession，它不会使用HttpSession来获取SecurityContext
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .and().csrf().disable();
     }
 
     /**
