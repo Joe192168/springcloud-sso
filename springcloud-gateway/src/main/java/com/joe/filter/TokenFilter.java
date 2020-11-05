@@ -2,11 +2,8 @@ package com.joe.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.joe.commons.enums.ResponseCodeEnum;
-import com.joe.commons.exception.TokenAuthenticationException;
-import com.joe.commons.utils.JWTUtil;
 import com.joe.commons.vo.Result;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -47,10 +44,14 @@ public class TokenFilter implements GlobalFilter{
             //利用签名解析token获取信息
             claims = Jwts.parser().setSigningKey(SIGNING_KEY.getBytes("UTF-8"))
                     .parseClaimsJws(token).getBody();
-        } catch (TokenAuthenticationException ex) {
-            return getVoidMono(response, ResponseCodeEnum.TOKEN_INVALID);
-        } catch (Exception ex){
-            return getVoidMono(response, ResponseCodeEnum.UNKNOWN_ERROR);
+        } catch (MalformedJwtException malformedJwtException) {
+            return getVoidMono(response,ResponseCodeEnum.TOKEN_INVALID);
+        } catch (SignatureException signatureException) {
+            return getVoidMono(response,ResponseCodeEnum.TOKEN_SIGNATURE_INVALID);
+        } catch (ExpiredJwtException tokenExpiredException) {
+            return getVoidMono(response,ResponseCodeEnum.TOKEN_EXPIRED);
+        } catch (Exception ex) {
+            return getVoidMono(response,ResponseCodeEnum.UNKNOWN_ERROR);
         }
         String userName = (String)claims.get("user_name");
         ServerHttpRequest mutableReq = request.mutate().header("userName", userName).build();
