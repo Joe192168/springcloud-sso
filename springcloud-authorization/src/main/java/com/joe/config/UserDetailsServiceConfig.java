@@ -6,6 +6,7 @@ import com.joe.entity.Users;
 import com.joe.mapper.RoleMapper;
 import com.joe.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,11 +41,11 @@ public class UserDetailsServiceConfig implements UserDetailsService {
         Users user = userMapper.selectOne(wrapper);
         //该账号为空
         if (user == null) {
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException("用户不存在，请重新输入！");
         }
         //该账号不正确
         if (!username.equals(user.getUserName())) {
-            throw new AcceptPendingException();
+            throw new BadCredentialsException("用户名或密码不正确，请重新输入！");
         }
         //根据用户id查询用户角色
         List<String> roles = roleMapper.findRolesByUserId(user.getId());

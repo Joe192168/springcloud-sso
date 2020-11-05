@@ -1,8 +1,12 @@
 package com.joe.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.joe.commons.enums.ResponseCodeEnum;
+import com.joe.commons.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -25,7 +29,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private TokenStore tokenStore;
 
-    //private ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     /**
      * 资源服务器安全配置
@@ -41,19 +45,18 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         //远程验证令牌的服务
         //resources.tokenServices(tokenService());
         resources.stateless(true);
-        //下面是对yml文件中远程校验toke配置
-        /*//当权限不足时返回
+        //当权限不足时返回
         resources.accessDeniedHandler((request, response, e) -> {
             response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
             response.getWriter()
-                    .write(objectMapper.writeValueAsString(Result.from("0001", "权限不足", null)));
+                    .write(objectMapper.writeValueAsString(Result.error(ResponseCodeEnum.AUTHORITY_NO_CAN.getCode(),ResponseCodeEnum.AUTHORITY_NO_CAN.getMessage())));
         });
         //当token不正确时返回
         resources.authenticationEntryPoint((request, response, e) -> {
             response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
             response.getWriter()
-                    .write(objectMapper.writeValueAsString(Result.from("0002", "access_token错误", null)));
-        });*/
+                    .write(objectMapper.writeValueAsString(Result.error(ResponseCodeEnum.TOKEN_INVALID.getCode(),ResponseCodeEnum.TOKEN_INVALID.getMessage())));
+        });
     }
 
     /**
@@ -66,6 +69,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint((req, resp, exception) -> {
+                    resp.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+                    resp.getWriter()
+                            .write(objectMapper.writeValueAsString(Result.error(ResponseCodeEnum.TOKEN_MISSION.getCode(),ResponseCodeEnum.TOKEN_MISSION.getMessage())));
+                })
                 .and()
                 //无需登陆
                 .authorizeRequests().antMatchers("/test/noauth").permitAll()
