@@ -12,7 +12,7 @@ localhost:8082/oauth/authorize?client_id=c1&client_secret=123&grant_type=passwor
 localhost:8082/oauth/authorize?client_id=c1&client_secret=123&grant_type=client_credentials
 
 测试
-1、申请token请求方式：POST
+1、基于密码模式申请token请求方式：POST
 localhost:8082/oauth/token?username=admin&password=123&grant_type=password&scopes=ROLE_API&client_id=c1&client_secret=123
 2、校验token请求方式：POST
 http://localhost:8082/oauth/check_token
