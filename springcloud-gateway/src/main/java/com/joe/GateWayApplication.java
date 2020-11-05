@@ -33,7 +33,7 @@ public class GateWayApplication {
      * @return
      */
     @Bean(name = "tokenFilter")
-    public TokenFilter tokenFilter() {
+    public TokenFilter tokenFilter(){
         return new TokenFilter();
     }
 

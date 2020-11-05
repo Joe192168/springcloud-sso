@@ -21,19 +21,19 @@ public class TestController {
     @GetMapping(value = "/r1",produces = "application/json; charset=utf-8")
     @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     public Result test1() {
-        return new Result("200","请求成功","订单1");
+        return Result.success("资源1");
     }
 
     @GetMapping(value = "/r2",produces = "application/json; charset=utf-8")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public Result test2() {
-        return new Result("200","请求成功","订单2");
+        return Result.success("资源2");
     }
 
     //无需登录
     @GetMapping("/noauth")
     public Result noauth() {
-        return new Result("200","请求成功","noauth");
+        return Result.success("noauth");
     }
 
     @RequestMapping("/name")

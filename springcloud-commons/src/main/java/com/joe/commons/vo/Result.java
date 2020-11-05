@@ -1,5 +1,6 @@
 package com.joe.commons.vo;
 
+import com.joe.commons.enums.ResponseCodeEnum;
 import lombok.Data;
 
 /**
@@ -8,17 +9,35 @@ import lombok.Data;
  **/
 @Data
 public class Result<T> {
-    private String code;
+    private int code;
     private String msg;
     private T data;
 
-    public Result(String code, String msg, T data) {
+    public Result(int code, String msg){
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public Result(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
     }
 
-    public static <T> Result from(String code, String msg, T data) {
+    public static Result success(){
+        return new Result(ResponseCodeEnum.SUCCESS.getCode(),ResponseCodeEnum.SUCCESS.getMessage());
+    }
+
+    public static <T> Result<T> success(T data){
+        return new Result(ResponseCodeEnum.SUCCESS.getCode(),ResponseCodeEnum.SUCCESS.getMessage(),data);
+    }
+
+    public static Result error(int code, String msg){
+        return new Result(code,msg);
+    }
+
+    public static <T> Result<T> error(int code, String msg, T data) {
         return new Result(code, msg, data);
     }
+
 }

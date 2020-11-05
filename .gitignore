@@ -22,3 +22,8 @@ target
 ####other####
 *.jpeg
 *.zip
+/springcloud-commons/src/main/java/com/joe/commons/vo/utils/EncryptUtil.java
+/springcloud-commons/src/main/java/com/joe/commons/utils/EncryptUtil.java
+/springcloud-commons/src/main/java/com/joe/commons/utils/JWTUtil.java
+/springcloud-commons/src/main/java/com/joe/commons/enums/ResponseCodeEnum.java
+/springcloud-commons/src/main/java/com/joe/commons/exception/TokenAuthenticationException.java
