@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e943d2fb-e25a-4cac-a220-a850152931b0",
+		"_postman_id": "a2fb25cb-9e57-4965-9fe2-0d331892363c",
 		"name": "Spring Security SSO测试",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -90,6 +90,5 @@
 			},
 			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

@@ -42,6 +42,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private TokenStore tokenStore;
     @Autowired
     private JwtAccessTokenConverter accessTokenConverter;
+    @Autowired
+    private UserDetailsServiceConfig userDetailsService;
 
     /**
      * 数据源配置
@@ -136,7 +138,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-                .authenticationManager(authenticationManager)//密码模式下需设置一个AuthenticationManager对象,获取 UserDetails信息
+                .authenticationManager(authenticationManager)//认证管理器
+                .userDetailsService(userDetailsService)//密码模式
                 .authorizationCodeServices(authorizationCodeServices())//授权码模式
                 .tokenServices(tokenServices())//令牌管理服务
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET,HttpMethod.POST);//允许POST提交
